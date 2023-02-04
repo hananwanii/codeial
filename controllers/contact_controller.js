@@ -1,3 +1,5 @@
 module.exports.contact = function (req, res){
-    return res.end('<h1>Contact is adding</h1>')
+    return res.render('about', {
+        title: "Contact"
+    })
 }
