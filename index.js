@@ -19,7 +19,14 @@ const pasportLocal = require('./config/passport-local-strategy');
 //Mongo Store for storing the cookie
 
 const MongoStore = require('connect-mongo');
+//for scss to css
 const sassMiddleware = require('node-sass-middleware');
+
+//for flash messages
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
+
+
 
 
 
@@ -36,6 +43,10 @@ app.use(sassMiddleware({
 }));
 
 app.use(express.urlencoded());
+
+
+//make the uploads path available to browser
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 
 
@@ -82,6 +93,8 @@ app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
 
+app.use(flash());
+app.use(customMware.setFlash);
 //use express router
 app.use('/', require('./routes'));
 
